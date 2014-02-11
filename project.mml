@@ -1,0 +1,141 @@
+{
+  "bounds": [
+    -105.3094,
+    39.9585,
+    -105.184,
+    40.0572
+  ],
+  "center": [
+    -105.2668,
+    40.0075,
+    16
+  ],
+  "format": "png",
+  "interactivity": {
+    "layer": "cu",
+    "template_full": "<img src=\"{{image}}\" />\n<h2>{{name}}</h2>\n<h5>Abbr: ({{short_name}}), Elevation: {{ele}}</h5>\n<hr />\n<p>Building Type: {{building}}</p>\n<p>{{description}}</p>\n<p>Address: {{housenumber}} {{street}}</p>\n<p> {{city}}, CO {{postcode}}</p>",
+    "fields": [
+      "image",
+      "name",
+      "short_name",
+      "ele",
+      "building",
+      "description",
+      "housenumber",
+      "street",
+      "city",
+      "postcode",
+      "osm_id"
+    ]
+  },
+  "minzoom": 14,
+  "maxzoom": 21,
+  "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+  "Stylesheet": [
+    "cu-buildings.mss"
+  ],
+  "Layer": [
+    {
+      "Datasource": {
+        "dbname": "osm_cuboulder",
+        "extent": "-20037508.34,-20037508.34,20037508.34,20037508.34",
+        "geometry_field": "way",
+        "host": "localhost",
+        "password": "ZrJ3M4qeQN",
+        "port": "5432",
+        "table": "( SELECT osm_id,way,building,aeroway,name, tags->'short_name' as short_name, tags->'description' as description, coalesce(operator,'') as operator\nFROM planet_osm_polygon\nWHERE (\"building\" IS NOT NULL\nAND \"building\" != 'no')\nOR \"aeroway\" IN ('terminal')\nORDER BY z_order asc ) AS building",
+        "type": "postgis",
+        "user": "osm_read",
+        "id": "building",
+        "project": "campusmap-tilemill",
+        "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+        "key_field": "osm_id",
+        "extent_cache": "auto",
+        "srid": "900913"
+      },
+      "class": "building",
+      "geometry": "polygon",
+      "id": "building",
+      "name": "building",
+      "properties": {
+        "cache-features": "true"
+      },
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "extent": [
+        -179.9999999749438,
+        -85.051,
+        179.9999999749438,
+        85.051
+      ],
+      "srs-name": "custom",
+      "advanced": {
+        "srid": "900913"
+      },
+      "status": "off"
+    },
+    {
+      "extent": [
+        -109.33691093325992,
+        36.211443994159225,
+        -102.04456792831822,
+        41.58393169983916
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "( SELECT osm_id,way,building,aeroway,name, tags->'short_name' as short_name, tags->'description' as description, coalesce(operator,'') as operator\nFROM planet_osm_polygon\nWHERE (\"building\" IS NOT NULL\nAND \"building\" != 'no')\nAND operator IS NULL or operator != 'University of Colorado Boulder'\nORDER BY z_order asc ) AS building",
+        "key_field": "",
+        "geometry_field": "",
+        "extent_cache": "auto",
+        "extent": "-12171329.25,4329754.88,-11359549.34,5098856.76",
+        "dbname": "osm_cuboulder",
+        "host": "localhost",
+        "port": "5432",
+        "user": "osm_read",
+        "password": "ZrJ3M4qeQN"
+      },
+      "id": "non-cu",
+      "class": "building",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "non-cu"
+    },
+    {
+      "extent": [
+        -109.33691093325992,
+        36.211443994159225,
+        -102.04456792831822,
+        41.58393169983916
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "( SELECT osm_id,way,building,aeroway,name, tags->'short_name' as short_name, tags->'description' as description, coalesce(operator,'') as operator, \"addr:housenumber\" as housenumber, tags->'addr:street' as street, tags->'addr:city' as city, tags->'addr:state' as state, tags->'addr:postcode' as postcode, tags->'ele' as ele, tags->'image' as image\nFROM planet_osm_polygon\nWHERE (\"building\" IS NOT NULL\nAND \"building\" != 'no')\nAND operator = 'University of Colorado Boulder'\nORDER BY z_order asc ) AS building",
+        "key_field": "osm_id",
+        "geometry_field": "way",
+        "extent_cache": "auto",
+        "extent": "-12171329.25,4329754.88,-11359549.34,5098856.76",
+        "dbname": "osm_cuboulder",
+        "host": "localhost",
+        "port": "5432",
+        "user": "osm_read",
+        "password": "ZrJ3M4qeQN",
+        "id": "cu",
+        "project": "cu-buildings",
+        "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over"
+      },
+      "id": "cu",
+      "class": "building",
+      "srs-name": "900913",
+      "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+      "advanced": {},
+      "name": "cu"
+    }
+  ],
+  "scale": 1,
+  "metatile": 2,
+  "_basemap": "cuboulder.cu-basemap",
+  "description": "",
+  "attribution": "",
+  "name": "CU Buildings",
+  "legend": ""
+}
